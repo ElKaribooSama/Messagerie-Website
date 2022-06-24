@@ -21,9 +21,10 @@ db.connect(function(err) {
     console.log("mySQL connected")
 })
 
-const sqluser = 'create table user(userID int auto_increment, userName varchar(255), dateOfCreation varchar(255));'
+const sqluser = 'create table user(userID int auto_increment, userName varchar(255), dateOfCreation varchar(255), userPassword varchar(255), mail varchar(255));'
 const sqlconv = 'create table conversation(conversationID int auto_increment, conversationName varchar(255));'
 const sqllinker = 'create table userConvLink (userID int,conversationID int)'
+const sqlmessage = 'create table message (conversationID int, userID int, content text, messageOrder int)'
 
 db.query(sqluser, function(err, res) {
     if (err) throw err
@@ -41,4 +42,10 @@ db.query(sqllinker, function(err, res) {
     if (err) throw err
     console.log(res)
     res.send('linker table created')
+})
+
+db.query(sqlmessage, function(err, res) {
+    if (err) throw err
+    console.log(res)
+    res.send('message table created')
 })
